@@ -1,0 +1,787 @@
+------------------------------------------- EJERCICIO I -----------------------------------------
+#include <iostream>
+using namespace std;
+using namespace System;
+
+void crearMatriz(short ** &mat, short &n, short &m);
+
+//Se utiliza Random para llenar la matriz con valores del 1 al 100
+void llenarMatriz(short ** mat, short &n, short &m);
+void mostrarFOperaciones(short ** mat, short &n, short &m);
+void mostrarCOperaciones(short ** mat, short &n, short &m);
+void mostrarMayor(short ** mat, short &n, short &m);
+void motrarMatriz(short ** mat, short &n, short &m);
+
+
+int main() {
+	short **Matriz, Filas, Columnas;
+	crearMatriz(Matriz, Filas, Columnas);
+	llenarMatriz(Matriz, Filas, Columnas);
+	motrarMatriz(Matriz, Filas, Columnas);
+	mostrarCOperaciones(Matriz, Filas, Columnas);
+	mostrarFOperaciones(Matriz, Filas, Columnas);
+	mostrarMayor(Matriz, Filas, Columnas);
+
+
+	getchar();
+	getchar();
+	return 0;
+}
+
+
+void crearMatriz(short ** &mat, short &n, short &m) {
+	while (true) {
+		cout << endl<< "Las filas y columnas deben ser enteros positivos menores a 10" << endl;
+		cout << "Ingrese la cantidad de filas que desea: ";
+		cin >> n;
+		cout << "Ingrese la cantidad de columnas que desea: ";
+		cin >> m;
+
+		if (m > 0 && m<10 && n > 0 && n<10)
+			break;
+	}
+
+
+	mat = new short*[n];
+	for (short i = 0; i < n; i++) {
+		mat[i] = new short[m];
+	}
+	return;
+}
+void llenarMatriz(short ** mat, short &n, short &m) {
+	Random r;
+
+	for (short i = 0; i < n; i++) {
+		for (short j = 0; j < m; j++)
+			mat[i][j] = r.Next(1,101);
+	}
+	return;
+}
+void mostrarFOperaciones(short ** mat, short &n, short &m) {
+	short sum, men;
+
+	for (short i = 0; i < n; i++) {
+		sum = 0; men = 101;
+		for (short j = 0; j < m; j++) {
+			sum += mat[i][j];
+			if (mat[i][j] < men)
+				men = mat[i][j];
+		}
+		cout << endl << "La suma de los valores en la fila " << i + 1 << " es " << sum << " y su menor valor almacenado es " << men << endl;
+	}
+	return;
+}
+void mostrarCOperaciones(short ** mat, short &n, short &m) {
+	short sum, may;
+	for (short j = 0; j < m; j++) {
+		sum = 0; may = 01;
+		for (short i = 0; i < n; i++) {
+			sum += mat[i][j];
+			if (mat[i][j] > may)
+				may = mat[i][j];
+		}
+		cout << endl << "La el promedio de la columna " << j + 1 << " es " << sum/double(m) << " y su mayor valor almacenado es " << may << endl;
+	}
+	return;
+
+
+	return;
+}
+void mostrarMayor(short ** mat, short &n, short &m) {
+	short may = 0, nMay, mMay;
+	for (short i = 0; i < n; i++) {
+		for (short j = 0; j < m; j++) {
+			if (mat[i][j]>may) {
+				may = mat[i][j];
+				nMay = i+1; mMay = j+1;
+			}		
+		}
+	}
+
+	cout << "El valor mayor de la matriz es " << may << " ubicado en la fila " << nMay << " y la columna " << mMay << endl;
+	
+	return;
+}
+void motrarMatriz(short ** mat, short &n, short &m) {
+	for (short i = 0; i < n; i++) {
+		for (short j = 0; j < m; j++)
+			cout << mat[i][j] << " ";
+		cout << endl;
+	}
+	return;
+}
+
+------------------------------------------- EJERCICIO II -----------------------------------------
+#include <iostream>
+using namespace std;
+
+void crearMatriz(short ** &mat, short &n) {
+	mat = new short*[n];
+	for (short i = 0; i < n; i++) {
+		mat[i] = new short[n];
+	}
+	return;
+}
+void llenarMatriz(short ** mat, short &n) {
+	for (short i = 0; i < n; i++) {
+		for (short j = 0; j < n; j++) {
+			cout << "Introduzca el valor en la fila " << i + 1 << " columna " << j + 1 << ": ";
+			cin >> mat[i][j];
+		}
+	}
+	return;
+}
+void mostrarMatriz(short ** mat, short &n) {
+	for (short i = 0; i < n; i++) {
+		for (short j = 0; j < n; j++)
+			cout << mat[i][j] << " ";
+		cout << endl;
+	}
+	return;
+}
+
+void esSimetrica(short ** mat, short &n) {
+	bool sim = true;
+	for (short i = 0; i < n && sim; i++) {
+		for (short j = 0; j < n && sim; j++) {
+			if (mat[i][j] != mat[j][i])
+				sim = false;
+		}
+	}
+	if (sim)
+		cout << "Es Simetrica";
+	else
+		cout << "No es Simetrica";
+	return;
+}
+
+
+
+int main() {
+	short ** mat, n;
+	while (true) {
+		cout << endl << "Las filas y columnas deben ser enteros positivos menores a 10" << endl;
+		cout << "Ingrese la cantidad de filas y columnas que desea: ";
+		cin >> n;
+
+		if (n > 0 && n<10)
+			break;
+	}
+
+	crearMatriz(mat, n);
+	llenarMatriz(mat, n);
+	mostrarMatriz(mat, n);
+	cout << endl;
+	esSimetrica(mat, n);
+
+
+	getchar();
+	getchar();
+
+	return 0;
+}
+
+------------------------------------------- EJERCICIO III -----------------------------------------
+#include <iostream>
+using namespace std;
+using namespace System;
+
+void crearMatriz(short ** &mat, short &n, short &m) {
+	mat = new short*[n];
+	for (short i = 0; i < n; i++) {
+		mat[i] = new short[m];
+	}
+	return;
+}
+void eliminarMatriz(short ** &mat, short &n) {
+	for (short i = 0; i < n; i++)
+		delete[] mat[i];
+
+	delete[] mat;
+	return;
+}
+void llenarMatriz(short ** mat, short &n, short &m) {
+	Random r;
+	for (short i = 0; i < n; i++) {
+		for (short j = 0; j < m; j++)
+			mat[i][j] = r.Next(1, 101);
+	}
+	return;
+}
+void invertirMatriz(short ** &mat, short &n, short &m) {
+	//Creamos una matriz con los valores invertidos de filas y columnas
+	short ** inverted;
+	crearMatriz(inverted, m, n);
+
+	//se copian los valores de las columnas en las filas 
+	for (short i = 0; i < m; i++) {
+		for (short j = 0; j < n; j++)
+			inverted[i][j] = mat[j][i];
+	}
+
+	//se elimina la matriz anterior
+	eliminarMatriz(mat, n);
+
+	//Cambiar fila y columnas. Darle el nuevo valor del puntero con la matriz invertida
+	mat = inverted;
+
+	short aux = n;
+	n = m;
+	m = aux;
+	return;
+}
+void mostrarMatriz(short ** mat, short &n, short &m) {
+	for (short i = 0; i < n; i++) {
+		for (short j = 0; j < m; j++)
+			cout << mat[i][j] << " ";
+		cout << endl;
+	}
+	return;
+}
+
+
+
+int main() {
+	short ** mat, n, m;
+	while (true) {
+		cout << endl << "Las filas y columnas deben ser enteros positivos menores a 10" << endl;
+		cout << "Ingrese la cantidad de filas que desea: ";
+		cin >> n;
+		cout << "Ingrese la cantidad de columnas que desea: ";
+		cin >> m;
+
+		if (n > 0 && n<10 && m > 0 && m<10)
+			break;
+	}
+	crearMatriz(mat, n, m);
+	llenarMatriz(mat, n, m);
+	cout <<endl<< "Matriz normal: " << endl;
+	mostrarMatriz(mat, n, m);
+	invertirMatriz(mat, n, m);
+	cout <<endl<< "Matriz Invertida: " << endl;
+	mostrarMatriz(mat, n, m);
+
+
+	getchar();
+	getchar();
+
+	return 0;
+}
+
+
+------------------------------------------- EJERCICIO IV -----------------------------------------
+
+#include <iostream>
+
+using namespace std;
+using namespace System;
+
+enum mes {enero, febrero, marzo, abril, mayo, junio, julio, agosto, septiembre, octubre, noviembre, diciembre};
+char *meses[12] = { "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" };
+
+#define AGENCIAS 5
+#define MESES 12
+
+//Asumiremos un valor de entre 10 y 1000 para las ventas
+void regitrarVentas(short matV[AGENCIAS][MESES]) {
+	Random r;
+	for (short i = 0; i < AGENCIAS; i++) {
+		for (short j = 0; j < MESES; j++)
+			matV[i][j] = r.Next(10, 1001);
+	}
+	cout << "Ventas Registradas!" <<endl;
+	return;
+}
+
+void totalAgencia(short matV[AGENCIAS][MESES], short n) {
+	short sum = 0;
+	for (short j = 0; j < MESES; j++)
+		sum += matV[n-1][j];
+
+	cout << "El total de ventas por la Agencia " << n << " en el año fue: " << sum << endl;
+	return;
+}
+
+void resumenVentas(short matV[AGENCIAS][MESES]) {
+
+	for (short i = 0; i < AGENCIAS; i++) {
+		cout << " Agencia " << i + 1 << endl << " |";
+		for (short j = 0; j < MESES; j++)
+			cout << meses[j] << " |";
+		cout << endl;
+		for (short j = 0; j < MESES; j++)
+			cout << "  " << matV[i][j] << "	";
+		cout << endl;
+	}
+	return;
+}
+
+void promedioMes(short matV[AGENCIAS][MESES], mes m) {
+	short sum = 0;
+	for (short i = 0; i < AGENCIAS; i++)
+		sum += matV[i][m];
+	cout << "El promedio de Ventas en el mes de " << meses[m] << " es: " << sum / double(AGENCIAS) <<endl;
+	return;
+}
+
+void mayorVentasAgencia(short matV[AGENCIAS][MESES], mes m) {
+	short indexM, may = 0;
+	for (short i = 0; i < AGENCIAS; i++)
+		if (matV[i][m] > may) {
+			may = matV[i][m];
+			indexM = i;
+		}
+	cout << "La agencia con mayor numero de ventas en el mes de " << meses[m] << " es la numero " << indexM + 1  << " con " << matV[indexM][m]<< " ventas."<< endl;
+
+	return;
+}
+
+void menorVentasMes(short matV[AGENCIAS][MESES]) {
+	short men = 1001, indexM;
+	for (short i = 0; i < AGENCIAS; i++) {
+		for (short j = 0; j < MESES; j++) {
+			if (matV[i][j] > men) {
+				men = matV[i][j];
+				indexM = j;
+			}
+		}
+	}
+
+	cout << "El mes con menor numero de ventas fue " << meses[indexM]<< endl;
+
+	return;
+}
+
+
+int main() {
+	short MatrizVentas[AGENCIAS][MESES];
+	regitrarVentas(MatrizVentas);
+	resumenVentas(MatrizVentas);
+	//Mostrar las ventas de la agencia numero 3.
+	totalAgencia(MatrizVentas, 3);
+	//Mostrar el promedio del mes de diciembre
+	promedioMes(MatrizVentas, diciembre);
+	//Mostrar la agencias con mas ventas en mayo
+	mayorVentasAgencia(MatrizVentas, mayo);
+	menorVentasMes(MatrizVentas);
+
+	getchar();
+	getchar();
+	return 0;
+}
+
+
+
+
+------------------------------------------- EJERCICIO V -----------------------------------------
+
+#include <iostream>
+
+using namespace std;
+using namespace System;
+
+#define MESAS 4
+#define CANDIDATOS 5
+
+//Asumiremos un valor de entre 10 y 1000 para los votos
+void regitrarVotos(short matV[MESAS][CANDIDATOS]) {
+	Random r;
+	for (short i = 0; i < MESAS; i++) {
+		for (short j = 0; j < CANDIDATOS; j++)
+			matV[i][j] = r.Next(10, 1001);
+	}
+	cout << "Votos Registrados!" <<endl;
+	return;
+}
+
+void resumenElecciones(short matV[MESAS][CANDIDATOS]) {
+	for (short j = 0; j < CANDIDATOS; j++)
+		cout << "	|     Cand " << j+1;
+
+	cout << endl;
+	for (short i = 0; i < MESAS; i++) {
+		cout << " Mesa " << i + 1 << " |";
+		for (short j = 0; j < CANDIDATOS; j++)
+			cout << "|	" << matV[i][j] << "	";
+		cout << endl;
+	}
+	return;
+}
+
+void totalVotosCandidatos(short matV[MESAS][CANDIDATOS]) {
+	short sum, allV = 0;
+
+	//Sumamos el total de votos.
+	for (short i = 0; i < MESAS; i++)
+		for (short j = 0; j < CANDIDATOS; j++)
+			allV += matV[i][j];
+
+	for (short j = 0; j < CANDIDATOS; j++) {
+		sum = 0;
+		cout << "Candiato " << j + 1;
+		for (short i = 0; i < MESAS; i++)
+			sum += matV[i][j];
+		cout << ": " << sum << " votos ( " << (sum * double(100))/double (allV) << "% )" <<endl;
+	}
+	return;
+}
+
+void masVotado(short matV[MESAS][CANDIDATOS]) {
+	short may = 0, sum, indexM;
+	for (short j = 0; j < CANDIDATOS; j++) {
+		sum = 0;
+		for (short i = 0; i < MESAS; i++) 
+			sum += matV[i][j];
+		if (sum > may) {
+			may = sum;
+			indexM = j+1;
+		}
+	}
+		
+	cout << "El candidato " << indexM << " es el mas votado con " << may << " votos. " << endl;
+	return;
+}
+
+void candidatoGanador(short matV[MESAS][CANDIDATOS]) {
+	short allV = 0;
+	//Sumamos el total de votos.
+	for (short i = 0; i < MESAS; i++)
+		for (short j = 0; j < CANDIDATOS; j++)
+			allV += matV[i][j];
+
+	bool winner = false;
+	for (short j = 0; j < CANDIDATOS; j++) {
+		short sum = 0;
+		for (short i = 0; i < MESAS; i++)
+			sum += matV[i][j];
+		if ((sum * double(100)) / double(allV) >= 50) {
+			cout << "El candidato " << j+1 << " es el ganador!" << endl;
+			winner = true;
+			break;
+		}
+	}
+	
+	if (!winner) {
+		short mayores[2] = { 0,0 };
+		short indexM[2] = { 0,0 };
+
+		for (short j = 0; j < CANDIDATOS; j++) {
+			short sum = 0;
+			for (short i = 0; i < MESAS; i++)
+				sum += matV[i][j];
+
+			if (sum > mayores[0]) {
+				mayores[0] = sum;
+				indexM[0] = j+1;
+			}
+			if (sum > mayores[1] && sum != mayores[0]) {
+				mayores[1] = sum;
+				indexM[1] = j+1;
+			}
+		}
+		cout << "Los dos candidatos con mas votos son (No hay ganador): " <<endl;
+		cout << "Candidato " << indexM[0] << " - " << mayores[0] << " Votos" << endl;
+		cout << "Candidato " << indexM[1] << " - " << mayores[1] << " Votos" << endl;
+	}
+	return;
+}
+
+int main() {
+	short Votos[MESAS][CANDIDATOS];
+	regitrarVotos(Votos);
+	resumenElecciones(Votos);
+	totalVotosCandidatos(Votos);
+	masVotado(Votos);
+	candidatoGanador(Votos);
+
+	getchar();
+	return 0;
+}
+
+
+------------------------------------------- EJERCICIO VI -----------------------------------------
+
+#include <iostream>
+using namespace std;
+using namespace System;
+
+
+void crearMatriz(short ** &mat, short &n) {
+	mat = new short*[n];
+	for (short i = 0; i < n; i++) {
+		mat[i] = new short[n];
+	}
+	return;
+}
+void llenarMatriz(short ** mat, short &n) {
+	Random r;
+	for (short i = 0; i < n; i++) {
+		for (short j = 0; j < n; j++)
+			mat[i][j] = r.Next(1, 10);
+	}
+	return;
+}
+void sumarTriangulos(short ** mat, short &n) {
+	for (short i = 0; i < n; i++) {
+		for (short j = 0; j < n; j++) {
+			if (i > j) 
+				mat[i][j] += mat[j][i];
+		}
+	}
+	return;
+}
+void hacerCero(short ** mat, short &n) {
+	for (short i = 0; i < n; i++) {
+		for (short j = 0; j < n; j++)
+			if (i < j || i - j == 0)
+				mat[i][j] = 0;
+	}
+	return;
+}
+void motrarMatriz(short ** mat, short &n) {
+	for (short i = 0; i < n; i++) {
+		for (short j = 0; j < n; j++)
+			cout <<"	|" <<mat[i][j];
+		cout << endl;
+	}
+	cout << endl;
+	return;
+}
+
+
+int main() {
+	short n, ** matriz;
+	while (true){
+		cout << "Introduzca la cantidad de filas y columnas: ";
+		cin >> n;
+		if (n >= 2 && n <= 50)
+			break;
+	}
+	crearMatriz(matriz, n);
+	llenarMatriz(matriz, n);
+	motrarMatriz(matriz, n);
+	sumarTriangulos(matriz, n);
+	motrarMatriz(matriz, n);
+	hacerCero(matriz, n);
+	motrarMatriz(matriz, n);
+
+	getchar();
+	getchar();
+	return 0;
+}
+
+
+
+------------------------------------------- EJERCICIO VII -----------------------------------------
+#include <iostream>
+using namespace std;
+using namespace System;
+
+#define FILAS 6
+#define COLUMNAS 8
+
+void llenarMatriz(short mat[FILAS][COLUMNAS]) {
+	Random r;
+	for (short i = 0; i < FILAS; i++) {
+		for (short j = 0; j < COLUMNAS; j++)
+			mat[i][j] = r.Next(0, 21);
+	}
+	return;
+}
+void analizarFoto(short fot[FILAS][COLUMNAS], bool ** est) {
+	for (short i = 1; i < FILAS - 1; i++) {
+		for (short j = 1; j < COLUMNAS - 1; j++){
+			if (fot[i][j] + fot[i - 1][j] + fot[i + 1][j] + fot[i][j - 1] + fot[i][j + 1] > 30)
+				est[i][j] = true;
+		}
+	}
+	return;
+}
+void motrarMatriz(short mat[FILAS][COLUMNAS]) {
+	for (short i = 0; i < FILAS; i++) {
+		for (short j = 0; j < COLUMNAS; j++)
+			cout << "	" <<mat[i][j];
+		cout << endl;
+	}
+	return;
+}
+void mostrarCielo(bool ** est) {
+	for (short j = 0; j < COLUMNAS ; j++)
+		cout << "	"<< j+1;
+	cout << endl;
+
+	for (short i = 0; i < FILAS; i++) {
+		cout << endl<<  " " << i + 1;
+		for (short j = 0; j < COLUMNAS; j++) {
+			cout << "	";
+			if (est[i][j])
+				cout << "*";
+			else
+				cout << " ";
+		}
+		cout << endl;
+	}
+
+}
+
+int main() {
+	short fotografia[FILAS][COLUMNAS];
+
+	bool ** estrellas;
+	estrellas = new bool*[FILAS];
+	for (short i = 0; i < FILAS; i++)
+		estrellas[i] = new bool[COLUMNAS];
+
+	for (short i = 0; i < FILAS; i++) {
+		for (short j = 0; j < COLUMNAS; j++)
+			estrellas[i][j] = false;
+	}
+
+	llenarMatriz(fotografia);
+	analizarFoto(fotografia, estrellas);
+	motrarMatriz(fotografia);
+	mostrarCielo(estrellas);
+	getchar();
+	return 0;
+}
+
+
+------------------------------------------- EJERCICIO VIII -----------------------------------------
+#include <iostream>
+using namespace std;
+using namespace System;
+
+char * dias[5] = { "Lunes", "Martes", "Miercoles","Jueves", "Viernes" };
+
+#define DEPARTAMENTOS 6
+#define DIAS 5
+
+void llenarMatriz(short mat[DIAS][DEPARTAMENTOS]) {
+	Random r;
+	for (short i = 0; i < DIAS; i++) {
+		for (short j = 0; j < DEPARTAMENTOS; j++)
+			mat[i][j] = r.Next(0,10);
+	}
+	return;
+}
+void ausDiariaDep(short mat[DIAS][DEPARTAMENTOS]) {
+	for (short j = 0; j < DEPARTAMENTOS; j++) {
+		cout << "Departamento " << j + 1 <<endl;
+		for (short i = 0; i < DIAS; i++)
+			cout << dias[i] << "(" << mat[i][j] << ")  ";
+		cout << endl;
+	}
+}
+void ausSemanalT(short mat[DIAS][DEPARTAMENTOS]) {
+	short sum;
+	cout << "Ausencia semanal por Departamento. " <<endl;
+	for (short j = 0; j < DEPARTAMENTOS; j++) {
+		sum = 0;
+		for (short i = 0; i < DIAS; i++)
+			sum += mat[i][j];
+		cout << "Departamento " << j + 1 << ": " << sum << " ausencias" << endl;
+	}
+	return;
+}
+void masYmenosAus(short mat[DIAS][DEPARTAMENTOS]) {
+	short may = 0, indexMy, men= 100, indexMn;
+	short sum;
+	for (short i = 0; i < DIAS; i++) {
+		sum = 0;
+		for (short j = 0; j < DEPARTAMENTOS; j++)
+			sum += mat[i][j];
+
+		if (sum > may) {
+			may = sum;
+			indexMy = i;
+		}
+		if (sum < men) {
+			men = sum;
+			indexMn = i;
+		}
+	}
+	cout << "El dia con mayor ausentismo fue el " << dias[indexMy] << " con " << may<< " ausencias." << endl;
+	cout << "El dia con menor ausentismo fue el " << dias[indexMn] << " con " << men << " ausencias." << endl;
+
+	return;
+}
+
+int main() {
+	short Ausentismo[DIAS][DEPARTAMENTOS];
+
+	llenarMatriz(Ausentismo);
+	ausDiariaDep(Ausentismo);
+	ausSemanalT(Ausentismo);
+	masYmenosAus(Ausentismo);
+
+	getchar();
+	getchar();
+
+	return 0;
+}
+
+
+
+
+------------------------------------------- EJERCICIO IX -----------------------------------------
+#include <iostream>
+using namespace std;
+
+bool esImparPositivo(short n);
+void mostrarCuadroMagico(short ** cuad, short size);
+void crearCuadroMagico(short ** &cuad, short &size);
+
+int main() {
+	short n, ** cuadradoM;
+	while (true) {
+		cout << "Ingrese un numero positivo e Impar: ";
+		cin >> n;
+		if (esImparPositivo(n))
+			break;
+	}
+
+	crearCuadroMagico(cuadradoM, n);
+	mostrarCuadroMagico(cuadradoM, n);
+	getchar();
+	getchar();
+	return 0;
+}
+
+bool esImparPositivo(short n) {
+	if (n % 2 != 0 && n > 0)
+		return true;
+	return false;
+}
+
+void crearCuadroMagico(short ** &cuad, short &size) {
+	cuad = new short*[size];
+	for (short i = 0; i < size; i++) {
+		cuad[i] = new short[size];
+	}
+	short n = 1;
+	short i = 0, j = (size / 2);
+
+	while (n < size*size+1) {
+		cuad[i][j] = n++;
+		if ((n%size) == 1)
+			//Sucesor multiplo de n
+			i = (i + 1 == size) ? 0 : i + 1;
+		else {
+			//Fila anterior y la Columna Posterior
+			i =	(i - 1 < 0)		? size-1 : i - 1;
+			j = (j + 1 == size) ?	0	 : j + 1;
+		}
+	}
+	return;
+};
+
+void mostrarCuadroMagico(short ** cuad, short size) {
+	for (short i = 0; i < size; i++) {
+		for (short j = 0; j < size; j++) {
+			cout << "|" << cuad[i][j] << "	|";
+		}
+		cout << endl;
+	}
+
+	return;
+}

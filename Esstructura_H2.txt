@@ -1,0 +1,196 @@
+----------------------------------------------- EJERCICIO I -----------------------------------------------
+#include <iostream>
+using namespace std;
+using namespace System;
+
+typedef struct Persona{
+	short edad;
+	short aprobacion;
+	char nivelSE;
+};
+
+char nSocioEconomicos[4] = { 'A','B','C','D' };
+
+void generarEncuestas(Persona * en, short n) {
+	Random r;
+	for (short i = 0; i < n; i++) {
+		en[i].edad = r.Next(18,91);
+		en[i].aprobacion = r.Next(1,6);
+		en[i].nivelSE = nSocioEconomicos[r.Next(0,4)];
+	}
+	return;
+}
+void mayorNivelA(Persona * en, short n) {
+	short aprobacion[5];
+	for (short i = 0; i < 5; i++)
+		aprobacion[i] = 0;
+
+	for (short i = 0; i < n; i++)
+		aprobacion[en[i].aprobacion - 1]++;
+
+	short may = 0, indexM;
+
+	for (short i = 0; i < 5; i++){
+		if (aprobacion[i] > may) {
+			may = aprobacion[i];
+			indexM = i;
+		}
+	}
+	cout << "El nivel de aprobacion que obtuvo mas votacion fue el " << indexM + 1<<endl;
+	return;
+}
+void participacionSE(Persona * en, short n, char nSE) {
+	short cnt = 0;
+	for (short i = 0; i < n; i++) {
+		if (en[i].nivelSE == nSE)
+			cnt++;	
+	}
+	cout << "Participantes con nivel socio economico "<< nSE << ": " << cnt <<endl;
+	return;
+}
+void menorEncuestado(Persona * en, short n) {
+	short men = 100;
+	for (short i = 0; i < n; i++) {
+		if (en[i].edad < men)
+			men = en[i].edad;	
+	}
+	cout << "La edad de la persona mas joven encuestada es " << men<<endl;
+	return;
+}
+
+int main() {
+	short n;
+	while (true) {
+		cout << "Ingrese el numero de personas encuestadas (no mayor que 100): ";
+		cin >> n;
+		if (n > 0 && n < 100)
+			break;
+	}
+
+	Persona *encuestados = new Persona[n];
+	generarEncuestas(encuestados, n);
+	mayorNivelA(encuestados, n);
+	participacionSE(encuestados, n, nSocioEconomicos[0]);
+	menorEncuestado(encuestados, n);
+
+	getchar();
+	getchar();
+	return 0;
+}
+
+----------------------------------------------- EJERCICIO II -----------------------------------------------
+
+#include <iostream>
+using namespace std;
+using namespace System;
+
+typedef struct Personas {
+	char sexo;
+	short edad;
+	short gasto;
+};
+
+char generos[2] = { 'M', 'F' };
+void generarEncuestas(Personas * en, short n) {
+	Random r;
+	for (short i = 0; i < n; i++) {
+		en[i].edad = r.Next(15,51);
+		en[i].gasto = r.Next(25, 501);
+		en[i].sexo = generos[r.Next(0, 2)];
+	}
+	return;
+}
+
+void mostrarMontos(Personas * en, short n) {
+	cout << "Montos Generados." << endl;
+	for (short i = 0; i < n; i++) {
+		cout << en[i].gasto << "(" << en[i].sexo << ")	"; 
+	}
+	cout << endl;
+	return;
+}
+void mostrarAsGyM(Personas * en, short n) {
+	
+	//ordenar ascendente
+	for (short i = 1; i < n ; i++){
+		for (short j = 0; j < n-1; j++){
+			if (en[j].gasto > en[j+1].gasto) {
+				Personas temp = en[j];
+				en[j] = en[j+1];
+				en[j+1] = temp;
+			}
+		}
+	}
+
+	for (short i = 0; i < 2; i++) {
+		cout << endl;
+		cout << "Montos - " << generos[i] << endl;
+		for (short j = 0; j < n; j++) {
+			if (en[j].sexo == generos[i])
+				cout << en[j].gasto << "	";
+		}
+		cout << endl;
+	}
+	return;
+}
+
+void gastoGenero(Personas * en, short n) {
+	cout << "Promedio de gastos por Generos" << endl;
+	
+	short sum, cnt;
+	for (short i = 0; i < 2; i++) {
+		sum = 0, cnt = 0;
+		for (short j = 0; j < n; j++) {
+			if (en[j].sexo == generos[i]) {
+				sum += en[j].gasto;
+				cnt++;
+			}
+		}
+		cout << generos[i] << ": " << sum/double(cnt) << endl;
+	}
+
+	return;
+}
+void gastoEdad(Personas * en, short n) {
+	cout << "Promedio de gastos por Edad" << endl;
+	
+	for (short i = 15; i < 51; i++) {
+		short sum = 0, cnt = 0;
+		for (short j = 0; j < n; j++) {
+			if (en[j].edad == i) {
+				sum += en[j].gasto;
+				cnt++;
+			}
+		}
+		if (sum != 0)
+			cout << "Edad "<< i << ": " << sum / double(cnt) << endl;
+	}
+	return;
+}
+
+int main() {
+	short n;
+	Personas * Entrevistados;
+	while (true) {
+		cout << "Ingrese el numero de personas encuestadas (MAXIMO 200): ";
+		cin >> n;
+		if (n > 0 && n <= 200)
+			break;
+	}
+
+	Entrevistados = new Personas[n];
+
+	generarEncuestas(Entrevistados, n);
+	mostrarMontos(Entrevistados, n);
+	mostrarAsGyM(Entrevistados, n);
+	gastoGenero(Entrevistados, n);
+	gastoEdad(Entrevistados, n);
+			
+
+	getchar();
+	getchar();
+	return 0;
+}
+
+
+
