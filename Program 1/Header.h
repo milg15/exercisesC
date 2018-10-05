@@ -1,4 +1,5 @@
 #include <iostream>
+//markov incompleto
 
 using namespace std;
 enum Climas {nub, pnub, sol, psol};
