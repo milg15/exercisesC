@@ -1,6 +1,8 @@
 #include <conio.h>
 #include "CMarkov.h"
 
+//more markov incompleto
+
 using namespace std;
 
 int main() {
