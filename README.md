@@ -1,2 +1,3 @@
 # exercisesC
-Program I - UPC 
+
+Stuff I should know.
