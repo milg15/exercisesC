@@ -6,7 +6,7 @@ class CMarkov
 {
 private:
 	float matrizT[4][4], matrizPn[4]; //Declaramos el atributos matriz Transicion y matris Composicion actual
-	float matrizP0[4]; //matriz composición inicial
+	float matrizP0[4]; //matriz composiciÃ³n inicial
 	const short matrizI[4][4] = { //matriz identidad Rango 4
 		{ 1,0,0,0 },
 		{ 0,1,0,0 },
